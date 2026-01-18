@@ -1,0 +1,28 @@
+{
+  "name": "assignment3-books-api",
+  "version": "1.0.0",
+  "description": "CRUD API for managing books using Express and MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "books",
+    "crud"
+  ],
+  "author": "Abylaikhan",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.1",
+    "mongoose": "^8.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

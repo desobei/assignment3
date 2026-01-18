@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books Library - Simple Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1em;
+        }
+
+        .section {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-box {
+            background: #d5e8f7;
+            border-left: 3px solid #3498db;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .info-box p {
+            color: #2c3e50;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .info-box a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Books Library</h1>
+        <p class="subtitle">MongoDB CRUD API - Assignment 3</p>
+
+        <div class="info-box">
+            <p>
+                <strong>Note:</strong> This is a simple HTML form interface. 
+                After submitting a form, you'll see the JSON response from the API. 
+                Use <a href="/index.html" style="color: #667eea; font-weight: 600;">the interactive interface</a> 
+                for a better experience with JavaScript enabled.
+            </p>
+        </div>
+
+        <!-- Add Book Form -->
+        <div class="section">
+            <h2>➕ Add New Book</h2>
+            <form action="/api/books" method="POST">
+                <div class="grid">
+                    <div>
+                        <label>Title <span class="required">*</span></label>
+                        <input type="text" name="title" required placeholder="The Great Gatsby">
+                    </div>
+                    <div>
+                        <label>Author <span class="required">*</span></label>
+                        <input type="text" name="author" required placeholder="F. Scott Fitzgerald">
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div>
+                        <label>Genre <span class="required">*</span></label>
+                        <input type="text" name="genre" required placeholder="Fiction">
+                    </div>
+                    <div>
+                        <label>Year</label>
+                        <input type="number" name="year" min="0" placeholder="1925">
+                    </div>
+                </div>
+
+                <label>Pages</label>
+                <input type="number" name="pages" min="1" placeholder="180">
+
+                <label>Description</label>
+                <textarea name="description" placeholder="Enter a brief description of the book..." maxlength="1000"></textarea>
+
+                <button type="submit">Save Book</button>
+            </form>
+        </div>
+
+        <!-- View Books -->
+        <div class="section">
+            <h2>View Books</h2>
+            <form action="/api/books" method="GET">
+                <button type="submit">View All Books</button>
+            </form>
+        </div>
+
+        <!-- Find Book by ID -->
+        <div class="section">
+            <h2>Find Book by ID</h2>
+            <form action="/api/books/" method="GET">
+                <label>Book ID <span class="required">*</span></label>
+                <input type="text" name="id" required placeholder="Enter MongoDB ObjectId" 
+                       pattern="[a-fA-F0-9]{24}" 
+                       title="Please enter a valid 24-character MongoDB ID">
+                <button type="submit">Find Book</button>
+            </form>
+        </div>
+
+        <!-- Add Review -->
+        <div class="section">
+            <h2>Add Book Review</h2>
+            <form action="/api/reviews" method="POST">
+                <label>Book ID <span class="required">*</span></label>
+                <input type="text" name="book" required placeholder="Enter Book's MongoDB ID"
+                       pattern="[a-fA-F0-9]{24}" 
+                       title="Please enter a valid 24-character MongoDB ID">
+
+                <label>Your Name</label>
+                <input type="text" name="reviewer" placeholder="Anonymous Reader">
+
+                <label>Rating <span class="required">*</span></label>
+                <select name="rating" required>
+                    <option value="">Select rating...</option>
+                    <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+                    <option value="4">⭐⭐⭐⭐ (4 - Good)</option>
+                    <option value="3">⭐⭐⭐ (3 - Average)</option>
+                    <option value="2">⭐⭐ (2 - Poor)</option>
+                    <option value="1">⭐ (1 - Terrible)</option>
+                </select>
+
+                <label>Comment</label>
+                <textarea name="comment" placeholder="Share your thoughts about this book..." maxlength="1000"></textarea>
+
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+
+        <!-- View Reviews -->
+        <div class="section">
+            <h2>View Reviews</h2>
+            <form action="/api/reviews" method="GET">
+                <button type="submit">View All Reviews</button>
+            </form>
+        </div>
+
+        <!-- API Endpoints Reference -->
+        <div class="section">
+            <h2>API Endpoints</h2>
+            <div style="background: white; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
+                <p><strong>Books:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>GET /api/books - Get all books</li>
+                    <li>GET /api/books/:id - Get single book</li>
+                    <li>POST /api/books - Create book</li>
+                    <li>PUT /api/books/:id - Update book</li>
+                    <li>DELETE /api/books/:id - Delete book</li>
+                    <li>GET /api/books/:id/reviews - Get book's reviews</li>
+                </ul>
+                <p><strong>Reviews:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>GET /api/reviews - Get all reviews</li>
+                    <li>GET /api/reviews/:id - Get single review</li>
+                    <li>POST /api/reviews - Create review</li>
+                    <li>PUT /api/reviews/:id - Update review</li>
+                    <li>DELETE /api/reviews/:id - Delete review</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
